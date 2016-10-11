@@ -1,0 +1,10 @@
+# IntelliJ
+.idea/
+out/
+META-INF/
+
+# Mac
+.DS_Store
+
+
+jennifer-view-adapter-slack.iml
