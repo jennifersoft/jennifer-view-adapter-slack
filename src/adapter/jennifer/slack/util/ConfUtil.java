@@ -7,74 +7,40 @@ import java.util.Properties;
 import com.jennifersoft.view.adapter.util.LogUtil;
 import com.jennifersoft.view.config.ConfigValue;
 import adapter.jennifer.slack.entity.SlackProp;
+import com.jennifersoft.view.extension.util.PropertyUtil;
 
 /**
- * Load adapter configuration from configuration file
+ * Load adapter configuration
  */
 public class ConfUtil {
 
 	/**
-	 * Properties instances to load the configuration
+	 * The adapter ID
 	 */
-	private static Properties properties = null;
-	
-	/**
-	 * Initialize the Properties object and load the configuration from the configuration file 
-	 * The configuration file name and path must be set in <b>VIEW_SERVER_HOME/conf/server_view.conf<b> using the
-	 * <b>adapter_config_path</b> option
-	 */
-	public static void load(){
-		properties = new Properties();
-		FileInputStream in = null;
-		String path = ConfigValue.adapter_config_path;
-		try{
-			if(path != null){
-				in = new FileInputStream(path);
-				properties.load(in);
-			}
-		}catch(IOException io){
-			LogUtil.error("Failed to load configuration file: " + io.toString());
-		}
-	}
+	private static final String ADAPTER_ID = "slack";
 	
 	/**
 	 * Get a configuration value using the provided key
-	 * @param key configuration key
+	 * @param key configuration key. Set this key value in the adapter configuration menu in JENNIFER client.
 	 * @return String configuration value
 	 */
 	public static String getValue(String key){
-		if(properties == null)
-			load();
-		return properties.getProperty(key);
+		return PropertyUtil.getValue(ADAPTER_ID, key);
 	}
-	
+
+
+	private static final SlackProp slackProperties = new SlackProp();
 	/**
-	 * Getter for the properties object.
-	 * @return the properties object
+	 * Get the slack properties
+	 * @return SlackProp slack properties
 	 */
-	public static Properties getProperties() {
-		if(properties == null)
-			load();
-		return properties;
-	}
-	
-	/**
-	 * Cast the properties into <b>SlackProp</b> class
-	 * The following properties must be set in the configuration file
-	 * <b>slack_webhook</b> The incoming WebHook URL
-	 * <b>slack_channel</b> The Slack Channel Name (Or username) where message will be delivered
-	 * <b>slack_username</b> The user name to be shown when sending message
-	 * <b>icon_emoji</b> The Emoji to be used when sending message
-	 * <b>message_color</b> Optional value to set message color
-	 * @return
-	 */
-	public static SlackProp getSlackProperties(){
-		SlackProp prop = new SlackProp();
-		prop.setChannel(getValue("slack_channel"));
-		prop.setColor(getValue("message_color"));
-		prop.setIconEmoji(getValue("icon_emoji"));
-		prop.setUserName(getValue("slack_username"));
-		prop.setWebHookUrl(getValue("slack_webhook"));
-		return prop;
+	public static SlackProp getSlackProperties() {
+		slackProperties.setChannel(getValue("slack_channel"));
+		slackProperties.setColor(getValue("message_color"));
+		slackProperties.setIconEmoji(getValue("icon_emoji"));
+		slackProperties.setUserName(getValue("slack_username"));
+		slackProperties.setWebHookUrl(getValue("slack_webhook"));
+
+		return  slackProperties;
 	}
 }
