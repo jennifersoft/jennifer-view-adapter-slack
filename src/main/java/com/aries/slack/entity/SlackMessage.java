@@ -1,4 +1,4 @@
-package adapter.jennifer.slack.entity;
+package com.aries.slack.entity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

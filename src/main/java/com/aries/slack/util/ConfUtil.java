@@ -1,13 +1,7 @@
-package adapter.jennifer.slack.util;
+package com.aries.slack.util;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
-import com.jennifersoft.view.adapter.util.LogUtil;
-import com.jennifersoft.view.config.ConfigValue;
-import adapter.jennifer.slack.entity.SlackProp;
-import com.jennifersoft.view.extension.util.PropertyUtil;
+import com.aries.extension.util.PropertyUtil;
+import com.aries.slack.entity.SlackProp;
 
 /**
  * Load adapter configuration

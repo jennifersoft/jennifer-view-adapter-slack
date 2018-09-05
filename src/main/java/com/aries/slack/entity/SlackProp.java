@@ -1,4 +1,4 @@
-package adapter.jennifer.slack.entity;
+package com.aries.slack.entity;
 
 /**
  * Slack Configuration and Properties class

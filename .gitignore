@@ -3,6 +3,9 @@
 out/
 META-INF/
 
+# Maven
+target/
+
 # Mac
 .DS_Store
 

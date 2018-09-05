@@ -1,7 +1,7 @@
-package adapter.jennifer.slack.util;
+package com.aries.slack.util;
 
-import com.jennifersoft.view.adapter.util.LogUtil;
-import adapter.jennifer.slack.entity.SlackMessage;
+import com.aries.extension.util.LogUtil;
+import com.aries.slack.entity.SlackMessage;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

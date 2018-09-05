@@ -1,5 +1,4 @@
 ## Important Notice
-Please use the **`old`** branch if you are using JENNIFER Server prior to **`5.2.3`** 
 
 ## Overview
 This adapter will send EVENT notification to a slack channel or a slack user.
@@ -11,11 +10,11 @@ The first step is to register the adapter:
 2. Make sure the adapter tab is selected then click the **[+Add]** button
 3. Select **[Event]** from the classifications dropdown.
 4. Enter **``slack``** as the adapter ID.
-5. Enter the path to the adapter JAR file ``jennifer-view-adapter-slack.jar`` or upload the JAR file from you local machine.
-6. Enter the adapter class name ``adapter.jennifer.slack.SlackAdapter`` and save the settings.
+5. Enter the path to the adapter JAR file.
+6. Enter the adapter class name ``com.aries.slack.SlackAdapter`` and save the settings.
  
 
-<img width="799" alt="slack_adapter_registration" src="https://user-images.githubusercontent.com/3861725/27722048-b37a96e6-5d9f-11e7-9aed-d77ce47d7b00.png">
+<img width="799" alt="slack_adapter_registration" src="https://user-images.githubusercontent.com/3861725/45069269-a15dcf80-b106-11e8-8f3f-5ad5d7e305b4.png"/>
 
 
 ### Options ##
@@ -31,3 +30,14 @@ The following table shows the required options for this adapter
 
 
 <img width="802" alt="slack_adapter_options" src="https://user-images.githubusercontent.com/3861725/27722333-eef01af0-5da1-11e7-8235-c993c88580af.png">
+
+
+### Adapter Version ##
+
+Different Adapter Version Support Different versions of the server 
+
+| Adapter Version           | JENNIFER Server Version  |
+| ------------- |:-------------:|
+| 1.0.0 | JENNIFER  Version < 5.2.3           |
+| 1.0.1 | JENNIFER version >= 5.2.3           |
+| 1.1.0 | JENNIFER version >= 5.4.0 | 
