@@ -27,7 +27,7 @@ public class SlackAdapter implements EventHandler{
 		SlackProp slackProperties = ConfUtil.getSlackProperties();
 
 		for (EventData event : eventData) {
-			String messageTitle = String.format("[%s] was caught be JENNIFER", event.errorType);
+			String messageTitle = String.format("[%s] was caught by JENNIFER", event.errorType);
 			SlackMessage slackMessage = new SlackMessage(slackProperties, jenniferEventToString(event), messageTitle, messageTitle);
 			String result = new SlackClinet(slackMessage).push();
 			result = result.trim();
