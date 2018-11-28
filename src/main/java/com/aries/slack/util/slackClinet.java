@@ -15,7 +15,7 @@ import java.net.URLEncoder;
  * Slack Client for pushing message to slack
  *
  */
-public class SlackClinet {
+public class slackClinet {
 	
 	/**
 	 * Default connection time out value
@@ -36,7 +36,7 @@ public class SlackClinet {
 	 * Default constructor
 	 * @param message SlackMessage object
 	 */
-	public SlackClinet(SlackMessage message){
+	public slackClinet(SlackMessage message){
 		this.slackMessage = message;
 	}
 	
@@ -54,8 +54,8 @@ public class SlackClinet {
 			connection.setUseCaches(false);
 			connection.setDoInput(true);
 			connection.setDoOutput(true);
-			
-			String payload = "payload=" + URLEncoder.encode(slackMessage.toJson().toString(),ENCODING);
+
+			String payload = "payload=" + URLEncoder.encode(slackMessage.toString(),ENCODING);
 			DataOutputStream out = new DataOutputStream(connection.getOutputStream());
 			out.writeBytes(payload);
 			out.flush();

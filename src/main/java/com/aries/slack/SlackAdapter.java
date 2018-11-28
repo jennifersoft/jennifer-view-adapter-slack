@@ -8,7 +8,7 @@ import com.aries.extension.handler.EventHandler;
 import com.aries.extension.util.LogUtil;
 import com.aries.slack.entity.SlackProp;
 import com.aries.slack.util.ConfUtil;
-import com.aries.slack.util.SlackClinet;
+import com.aries.slack.util.slackClinet;
 
 import com.aries.slack.entity.SlackMessage;
 
@@ -27,9 +27,17 @@ public class SlackAdapter implements EventHandler{
 		SlackProp slackProperties = ConfUtil.getSlackProperties();
 
 		for (EventData event : eventData) {
-			String messageTitle = String.format("[%s] was caught by JENNIFER", event.errorType);
-			SlackMessage slackMessage = new SlackMessage(slackProperties, jenniferEventToString(event), messageTitle, messageTitle);
-			String result = new SlackClinet(slackMessage).push();
+
+			String message = getBody(event);
+			String pretext = getPreText(event);
+
+			SlackMessage slackMessage = new SlackMessage(slackProperties, message, pretext, event.errorType);
+
+			if (event.txid != 0 && slackProperties.getShareUrl() != null) {
+				slackMessage.addXviewButton(event.domainId,event.txid, event.time);
+			}
+
+			String result = new slackClinet(slackMessage).push();
 			result = result.trim();
 			if(!result.trim().toLowerCase().equals("ok"))
 				LogUtil.error("Failed to push message to Slack");
@@ -39,26 +47,26 @@ public class SlackAdapter implements EventHandler{
 
 	
 	/**
-	 * String representation of the event to be used as the slack message body
+	 * Construct message body
 	 * @param event the EventData model
 	 * @return event model as string (Slack message body)
 	 */
-	private String jenniferEventToString(EventData event){
+	private String getBody(EventData event){
 		StringBuilder messageBody = new StringBuilder();
-		messageBody.append(String.format("The following event [%s] was caught by JENNIFER. %n",  event.errorType));
-		messageBody.append("Here are some additional details\n");
-		messageBody.append(String.format("Domain ID: %d%n", event.domainId));
+		messageBody.append(String.format("```Domain ID: %d%n", event.domainId));
 		messageBody.append(String.format("Instance Name: %s%n", event.instanceName));
 		messageBody.append(String.format("Transaction ID: %d%n", event.txid));
 		messageBody.append(String.format("Service Name: %s%n", event.serviceName));
 		messageBody.append(String.format("Error Type: %s%n", event.errorType));
 		messageBody.append(String.format("Error Level: %s%n", event.eventLevel));
-		messageBody.append(String.format("Error Time: %s%n", sdf.format(new Date(event.time))));
-
-		messageBody.append("\nThis is an auto generated message");
-
+		messageBody.append(String.format("Error Time: %s```%n", sdf.format(new Date(event.time))));
 		return messageBody.toString();
 	}
 	
-	
+	private String getPreText(EventData event) {
+		StringBuilder pretext = new StringBuilder();
+		pretext.append(String.format("The following event [%s] was caught by JENNIFER. %n",  event.errorType));
+		pretext.append("Here are some additional details\n");
+		return pretext.toString();
+	}
 }

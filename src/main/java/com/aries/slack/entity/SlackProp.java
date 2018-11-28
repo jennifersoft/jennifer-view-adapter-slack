@@ -27,12 +27,26 @@ public class SlackProp {
 	 * Icon emoji to be displayed
 	 */
 	private String iconEmoji;
-	
+
 	/**
-	 * Message color. use Hex values
+	 * Message Color
 	 */
 	private String color;
+	
+	/**
+	 * JENNIFER X-View Share URL Used to open X-View pop-up
+	 */
+	private String shareUrl;
 
+	/**
+	 * Message Footer Text
+	 */
+	private String footer;
+
+	/**
+	 * View On Xivew Button
+	 */
+	private String buttonText;
 	
 	public String getWebHookUrl() {
 		return webHookUrl;
@@ -66,15 +80,35 @@ public class SlackProp {
 		this.iconEmoji = iconEmoji;
 	}
 
-	public String getColor() {
-		return color;
+	public String getShareUrl() {
+		return shareUrl;
+	}
+
+	public void setShareUrl(String shareUrl) {
+		this.shareUrl = shareUrl;
 	}
 
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
-	
-	
-	
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setFooter(String footer) {
+		this.footer = footer;
+	}
+
+	public String getFooter() {
+		return footer;
+	}
+
+	public String getButtonText() {
+		return buttonText;
+	}
+
+	public void setButtonText(String buttonText) {
+		this.buttonText = buttonText;
+	}
 }
