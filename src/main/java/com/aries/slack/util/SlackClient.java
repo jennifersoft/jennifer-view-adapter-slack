@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Slack Client for pushing message to slack
@@ -56,7 +57,7 @@ public class SlackClient {
 			connection.setDoOutput(true);
 
 			DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-			out.writeBytes(slackData.toString());
+			out.write(slackData.toString().getBytes(StandardCharsets.UTF_8));
 			out.flush();
 			out.close();
 
@@ -70,7 +71,7 @@ public class SlackClient {
 			reader.close();
 			return response.toString();
 		}catch(Exception ex){
-			LogUtil.error("Error while pushing message. Reason : " + ex.toString());
+			LogUtil.error("Error while pushing message. Reason : " + ex);
 			return null;
 		}finally{
 			if(connection != null)

@@ -39,15 +39,15 @@ public class SlackData extends JSONObject{
 		JSONObject obj = new JSONObject();
 		obj.put("fallback", this.event.errorType);
 
-		if (this.event.eventLevel == "FATAL")
+		if (this.event.eventLevel.equals("FATAL"))
 			obj.put("color", "#ff384d");
-		else if (this.event.eventLevel == "WARNING")
+		else if (this.event.eventLevel.equals("WARNING"))
 			obj.put("color", "#ffdd00");
 		else
 			obj.put("color", "#497eff");
 
-		obj.put("pretext", pretext);
-		obj.put("text", message);
+		obj.put("pretext", this.pretext);
+		obj.put("text", this.message);
 		obj.put("footer", getProp().getFooter());
 		attachments.put(obj);
 

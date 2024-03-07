@@ -1,6 +1,7 @@
 package com.aries.slack;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.aries.extension.data.EventData;
@@ -24,6 +25,7 @@ public class SlackAdapter implements EventHandler{
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 	public void on(EventData[] eventData) {
+//		SlackProp slackProperties = ConfUtil._getSlackProperties();
 		SlackProp slackProperties = ConfUtil.getSlackProperties();
 
 		for (EventData event : eventData) {
@@ -40,6 +42,7 @@ public class SlackAdapter implements EventHandler{
 	private String getBody(EventData event){
 		StringBuilder messageBody = new StringBuilder();
 		messageBody.append(String.format("```Domain ID: %d%n", event.domainId));
+		messageBody.append(String.format("Domain Name: %s%n", event.domainName));
 		messageBody.append(String.format("Instance Name: %s%n", event.instanceName));
 		messageBody.append(String.format("Transaction ID: %d%n", event.txid));
 		messageBody.append(String.format("Service Name: %s%n", event.serviceName));
@@ -54,5 +57,10 @@ public class SlackAdapter implements EventHandler{
 		pretext.append(String.format("The following event [%s] was caught by JENNIFER. %n",  event.errorType));
 		pretext.append("Here are some additional details\n");
 		return pretext.toString();
+	}
+
+	public static void main(String[] args) {
+		EventData event = new EventData((short) 1004, new ArrayList<String>(), "제니퍼", System.currentTimeMillis(), 1000, "Groupware", "", "SERVICE_EXCEPTION", "", "FATAL", "", -1, "SYSTEM", "", "/service.jsp", -123123123, "", null);
+		new SlackAdapter().on(new EventData[] { event });
 	}
 }
