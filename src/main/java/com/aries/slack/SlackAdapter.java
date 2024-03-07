@@ -34,7 +34,7 @@ public class SlackAdapter implements EventHandler{
 
 			SlackData slackMessage = new SlackData(slackProperties, message, pretext, event);
 			String result = new SlackClient(slackMessage).push().trim();
-			if(!result.trim().toLowerCase().equals("ok"))
+			if(!result.trim().equalsIgnoreCase("ok"))
 				LogUtil.error("Failed to push message to Slack");
 		}
 	}

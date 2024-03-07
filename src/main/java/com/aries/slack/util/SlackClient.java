@@ -70,14 +70,12 @@ public class SlackClient {
 			
 			reader.close();
 			return response.toString();
-		}catch(Exception ex){
+		} catch(Exception ex){
 			LogUtil.error("Error while pushing message. Reason : " + ex);
-			return null;
-		}finally{
+			return "";
+		} finally{
 			if(connection != null)
 				connection.disconnect();
 		}
 	}
-
-	
 }
