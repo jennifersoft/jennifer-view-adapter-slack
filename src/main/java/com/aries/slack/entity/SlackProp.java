@@ -7,9 +7,9 @@ package com.aries.slack.entity;
 public class SlackProp {
 
 	/**
-	 * Slack Incoming Webhook URL
+	 * Slack Incoming Webhook URLs (comma-separated)
 	 */
-	private String webHookUrl;
+	private String webHookUrls;
 	
 	/**
 	 * Slack Channel
@@ -48,12 +48,22 @@ public class SlackProp {
 	 */
 	private String buttonText;
 	
-	public String getWebHookUrl() {
-		return webHookUrl;
+	public String getWebHookUrls() {
+		return webHookUrls;
 	}
 
-	public void setWebHookUrl(String webHookUrl) {
-		this.webHookUrl = webHookUrl;
+	public void setWebHookUrls(String webHookUrls) {
+		this.webHookUrls = webHookUrls;
+	}
+	
+	/**
+	 * Returns an array of webhook URLs by splitting the comma-separated string
+	 */
+	public String[] getWebHookUrlArray() {
+		if (webHookUrls == null || webHookUrls.trim().isEmpty()) {
+			return new String[0];
+		}
+		return webHookUrls.split(",");
 	}
 
 	public String getChannel() {

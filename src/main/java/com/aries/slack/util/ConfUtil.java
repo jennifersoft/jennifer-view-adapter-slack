@@ -34,7 +34,7 @@ public class ConfUtil {
 		slackProperties.setChannel(getValue("slack_channel", null));
 		slackProperties.setIconEmoji(getValue("icon_emoji", ":information_desk_person:"));
 		slackProperties.setUserName(getValue("slack_username", "JENNIFER Slack"));
-		slackProperties.setWebHookUrl(getValue("slack_webhook", null));
+		slackProperties.setWebHookUrls(getValue("slack_webhook", null));
 		slackProperties.setShareUrl(getValue("share_url", null));
 		slackProperties.setColor(getValue("message_color", "#551A8B"));
 		slackProperties.setFooter(getValue("message_footer", "This is an Auto Generated Message by JENNIFER Adapter"));
@@ -47,7 +47,7 @@ public class ConfUtil {
 		slackProperties.setChannel(getValue("slack_channel", "#test"));
 		slackProperties.setIconEmoji(getValue("icon_emoji", ":information_desk_person:"));
 		slackProperties.setUserName(getValue("slack_username", "JENNIFER Slack"));
-		slackProperties.setWebHookUrl(getValue("slack_webhook", "https://hooks.slack.com/services/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"));
+		slackProperties.setWebHookUrls(getValue("slack_webhook", "https://hooks.slack.com/services/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"));
 		slackProperties.setShareUrl(getValue("share_url", "https://dev.jennifersoft.com"));
 		slackProperties.setColor(getValue("message_color", "#551A8B"));
 		slackProperties.setFooter(getValue("message_footer", "This is an Auto Generated Message by JENNIFER Adapter"));

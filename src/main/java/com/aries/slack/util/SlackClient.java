@@ -45,9 +45,40 @@ public class SlackClient {
 	 * @return Return either "ok" if message was sent, or null if message was not sent or an exception occured.
 	 */
 	public String push() {
+		String[] webhookUrls = slackData.getProp().getWebHookUrlArray();
+		if (webhookUrls.length == 0) {
+			LogUtil.error("No webhook URLs configured");
+			return "";
+		}
+		
+		StringBuilder allResponses = new StringBuilder();
+		boolean allSuccess = true;
+		
+		for (String webhookUrl : webhookUrls) {
+			String trimmedUrl = webhookUrl.trim();
+			if (trimmedUrl.isEmpty()) {
+				continue;
+			}
+			
+			String response = pushToSingleWebhook(trimmedUrl);
+			if (response.isEmpty()) {
+				allSuccess = false;
+			}
+			allResponses.append(response);
+		}
+		
+		return allSuccess ? allResponses.toString() : "";
+	}
+	
+	/**
+	 * Push message to a single webhook URL
+	 * @param webhookUrl The webhook URL to send message to
+	 * @return Response string or empty string on error
+	 */
+	private String pushToSingleWebhook(String webhookUrl) {
 		HttpURLConnection connection = null;
 		try {
-			URL url = new URL(slackData.getProp().getWebHookUrl());
+			URL url = new URL(webhookUrl);
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setConnectTimeout(CONNECTION_TIME_OUT);
@@ -71,7 +102,7 @@ public class SlackClient {
 			reader.close();
 			return response.toString();
 		} catch(Exception ex){
-			LogUtil.error("Error while pushing message. Reason : " + ex);
+			LogUtil.error("Error while pushing message to webhook: " + webhookUrl + ". Reason : " + ex);
 			return "";
 		} finally{
 			if(connection != null)
